@@ -1,6 +1,6 @@
 # ws-mse-demo
 
-prepare fragmented mp4 file media source buffer
+prepare mp4 file for media source buffer
 
 ```sh
 #!/bin/bash
