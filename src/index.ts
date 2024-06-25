@@ -1,5 +1,9 @@
 
-const mimeType = `video/mp4; codecs="avc1.4d4020"; profiles="iso5,iso6,mp41"`
+const codecH264 = "avc1.4d4020"
+const codecAAC = "mp4a.40.2"
+
+const mimeType = `video/mp4; codecs="` + codecH264 + "," + codecAAC + `"`
+// const mimeType = `video/mp4; codecs="avc1.4d4020,mp4a.40.2"`
 
 const videoElement = document.getElementById("video") as HTMLVideoElement
 videoElement.autoplay = true
