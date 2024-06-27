@@ -12,7 +12,7 @@ playButton.onclick = () => {
     videoElement.src = URL.createObjectURL(mediaSource)
 
     mediaSource.onsourceopen = () => {
-        const sourceBuffer = mediaSource.addSourceBuffer(mimeTypeMp4Video)
+        const sourceBuffer = mediaSource.addSourceBuffer(mimeTypeMp4VideoAudio)
         sourceBuffer.mode = "segments"
         const sourceBuffer2 = new SourceBufferWrapper(sourceBuffer)
 

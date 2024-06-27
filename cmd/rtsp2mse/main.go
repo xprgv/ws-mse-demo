@@ -35,7 +35,7 @@ func main() {
 
 	rtspClient, err := rtspv2.Dial(rtspv2.RTSPClientOptions{
 		URL:              *rtspUrl,
-		DisableAudio:     true,
+		DisableAudio:     false,
 		DialTimeout:      time.Second * 3,
 		ReadWriteTimeout: 3 * time.Second,
 		Debug:            false,
@@ -47,26 +47,39 @@ func main() {
 
 	log.Println("rtsp client connected")
 
-	var h264CodecData av.CodecData
+	var (
+		h264CodecData av.CodecData
+		aacCodecData  av.CodecData
+	)
 
-	found := false
+	var (
+		h264VideoFound = false
+		aacAudioFound  = false
+	)
+
 	for _, codecData := range rtspClient.CodecData {
-		if codecData.Type().String() == "H264" {
+		switch codecData.Type().String() {
+		case "H264":
 			h264CodecData = codecData
-			found = true
-			break
+			h264VideoFound = true
+		case "AAC":
+			aacCodecData = codecData
+			aacAudioFound = true
 		}
 	}
 
-	if !found {
-		log.Fatal("no h264 codec in rtsp input")
+	if !h264VideoFound || !aacAudioFound {
+		log.Fatal("no h264 video or aac audio")
 	}
 
 	mp4Muxer := mp4f.NewMuxer(nil)
 
 	log.Println("mp4 muxer created")
 
-	codecs := []av.CodecData{h264CodecData}
+	codecs := []av.CodecData{
+		h264CodecData,
+		aacCodecData,
+	}
 
 	packetChan := make(chan *av.Packet, 100)
 	go func() {

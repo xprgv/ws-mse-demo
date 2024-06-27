@@ -14,7 +14,7 @@ import (
 
 var (
 	address       = pflag.String("address", "localhost:3000", "")
-	mediaFilePath = pflag.String("file", "./file_video.mp4", "")
+	mediaFilePath = pflag.String("file", "./file.mp4", "")
 )
 
 const (
