@@ -14,7 +14,12 @@ import (
 
 var (
 	address       = pflag.String("address", "localhost:3000", "")
-	mediaFilePath = pflag.String("file", "./file.mp4", "")
+	mediaFilePath = pflag.String("file", "./file_video.mp4", "")
+)
+
+const (
+	mimeTypeMp4Video      = `video/mp4; codecs="avc1.4d4020"`
+	mimeTypeMp4VideoAudio = `video/mp4; codecs="avc1.4d4020,mp4a.40.2"`
 )
 
 var upgrader = websocket.Upgrader{
